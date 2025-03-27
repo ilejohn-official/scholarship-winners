@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      apiBase: "https://scholarshipowl.com/jsonapi",
+      apiBaseUrl: "https://scholarshipowl.com/jsonapi",
     },
   },
 })
