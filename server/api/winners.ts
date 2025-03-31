@@ -1,4 +1,4 @@
-import { WinnersResponse } from '../types/winners';
+import { WinnersResponse } from '~/types/winners';
 
 // Updated handler with type safety and base URL from runtime config
 export default defineEventHandler(async (event) => {

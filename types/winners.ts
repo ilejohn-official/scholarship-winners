@@ -1,0 +1,45 @@
+export type WinnerAttributes = {
+  amountWon: number;
+  winnerName: string;
+  wonAt: string;
+  winnerPhoto: string;
+  published: number;
+  scholarshipTitle: string;
+  testimonialVideo: string;
+  testimonialText: string;
+}
+
+export type Winner = {
+  type: string;
+  id: string;
+  attributes: WinnerAttributes;
+  links: Links;
+}
+
+export type WinnersResponse = {
+  data: Winner[];
+  meta: WinnersMeta;
+  links: PaginatedLinks;
+}
+
+type PaginatedLinks = Links & {
+  first: string;
+  next: string;
+  last: string;
+}
+
+type WinnersMeta = {
+  pagination: Pagination;
+}
+
+type Links = {
+  self: string;
+}
+
+type Pagination = {
+  total: number;
+  count: number;
+  per_page: number;
+  current_page: number;
+  total_pages: number;
+}
