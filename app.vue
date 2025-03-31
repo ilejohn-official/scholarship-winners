@@ -1,18 +1,25 @@
+<template>
+  <div>
+    <NuxtRouteAnnouncer />
+  </div>
+</template>
+
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useFetch } from '#app/composables/fetch';
 
-import * as Winner from "../server/types/winners";
+import type { Winner } from "~/types/winners";
 
 const winners = ref<Winner[]>([]);
-const limit = ref(5);
-const loading = ref(true);
+const limit = ref<number>(5);
+const loading = ref<boolean>(true);
 const error = ref<string | null>(null);
 
-onMounted(async () => {
+const fetchWinners = async (): Promise<void> => {
+  loading.value = true;
   try {
-    const { data } = await useFetch(`/api/winners?limit=${limit.value}`);
-    winners.value = data.value.data || [];
+    const { data } = await useFetch<Winner[]>(`/api/winners?limit=${limit.value}`);
+    winners.value = data.value ?? [];
 
     console.log('response', winners.value);
   } catch (err) {
@@ -20,11 +27,8 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
-});
-</script>
+};
 
-<template>
-  <div>
-    <NuxtRouteAnnouncer />
-  </div>
-</template>
+watch(limit, fetchWinners, { immediate: true });
+
+</script>
