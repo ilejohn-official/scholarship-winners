@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   ssr: true, // Enables Server-Side Rendering
   typescript: {
     strict: true,
+    typeCheck: true
   },
   runtimeConfig: {
     public: {

@@ -21,6 +21,8 @@
     "@nuxt/eslint": "^1.2.0",
     "@nuxt/icon": "^1.11.0",
     "@nuxt/image": "^1.10.0",
-    "@types/node": "^22.13.14"
+    "@types/node": "^22.13.14",
+    "typescript": "^5.8.2",
+    "vue-tsc": "^2.2.8"
   }
 }
