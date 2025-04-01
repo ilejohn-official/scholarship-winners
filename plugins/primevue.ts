@@ -6,6 +6,7 @@ import Image from "primevue/image";
 import Paginator from "primevue/paginator";
 import ProgressSpinner from "primevue/progressspinner";
 import Aura from '@primeuix/themes/aura';
+import Skeleton from 'primevue/skeleton';
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, {
@@ -25,4 +26,5 @@ export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.component("Image", Image);
   nuxtApp.vueApp.component("Paginator", Paginator);
   nuxtApp.vueApp.component("ProgressSpinner", ProgressSpinner);
+  nuxtApp.vueApp.component("Skeleton", Skeleton)
 });
