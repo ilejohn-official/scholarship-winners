@@ -2,14 +2,27 @@ import { defineNuxtPlugin } from '#app';
 import PrimeVue from 'primevue/config';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
+import Image from "primevue/image";
+import Paginator from "primevue/paginator";
 import ProgressSpinner from "primevue/progressspinner";
+import Aura from '@primeuix/themes/aura';
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(PrimeVue, {
-    ripple: true, // Enable ripple effect globally
-    inputStyle: 'outlined', // Default input style
+    ripple: true,
+    inputStyle: 'outlined',
+    theme: {
+      preset: Aura,
+      options: {
+        prefix: 'p',
+        darkModeSelector: false,
+        cssLayer: false
+      }
+    }
   });
   nuxtApp.vueApp.component("DataTable", DataTable);
   nuxtApp.vueApp.component("Column", Column);
+  nuxtApp.vueApp.component("Image", Image);
+  nuxtApp.vueApp.component("Paginator", Paginator);
   nuxtApp.vueApp.component("ProgressSpinner", ProgressSpinner);
 });
