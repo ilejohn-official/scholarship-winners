@@ -1,20 +1,24 @@
 <template>
   <div class="container">
-    <h1>Scholarship Winners</h1>
-
-    <!-- Show loading spinner -->
-    <div v-if="loading" class="loading-overlay">
-      <ProgressSpinner />
+    <!-- Show loading spinner on fresh page load -->
+    <div v-if="isFreshLoad" class="loading-overlay">
+      <ClientOnly>
+        <ProgressSpinner />
+      </ClientOnly>
     </div>
 
-    <!-- Show error message -->
-    <p v-if="err && !loading" class="error">{{ err }}</p>
+    <div v-if="!isFreshLoad">
+      <h1>Scholarship Winners</h1>
 
-    <!-- Winners Table Component -->
-    <WinnerTable v-if="!loading && !err" :winners="winners" />
+      <!-- Show error message -->
+      <p v-if="err && !loading" class="error">{{ err }}</p>
 
-    <!-- Pagination Controls -->
-    <div class="card">
+      <!-- Winners Table Component -->
+      <WinnerTable v-if="!err && winners.length > 0" :winners="winners" :tableLoading="loading" />
+
+      <p v-if="!err && winners.length < 1">No scholarship winners found.</p>
+
+      <!-- Pagination Controls -->
       <Paginator :rows="limit" :totalRecords="totalRecords" :rowsPerPageOptions="[5, 10, 20, 30]"
         :first="(currentPage - 1) * limit" @page="onPageChange" @update:rows="onRowChange" />
     </div>
@@ -24,11 +28,17 @@
 <script setup lang="ts">
 import type { Winner, WinnersResponse } from "~/shared/types/winners";
 
+useHead({
+  title: "Scholarship Winners | ScholarshipOwl",
+  meta: [{ name: "description", content: "List of winners from ScholarshipOwl." }]
+});
+
 const route = useRoute();
 const router = useRouter();
 
 const currentPage = ref<number>(Number(route.query.page) || 1);
 const limit = ref<number>(Number(route.query.limit) || 5);
+const isFreshLoad = ref(true);
 
 // Server-side data fetching
 const { data, pending, error, refresh } = await useAsyncData<WinnersResponse>(
@@ -42,6 +52,10 @@ const winners = computed<Winner[]>(() => data.value?.data ?? []);
 const totalRecords = computed<number>(() => data.value?.meta?.pagination.total ?? 0);
 const loading = computed<boolean>(() => pending.value);
 const err = computed<string | null>(() => error.value ? "Failed to load winners." : null);
+
+onMounted(() => {
+  isFreshLoad.value = false;
+});
 
 // Watch query changes
 watch(() => [route.query.page, route.query.limit], async ([newPage, newLimit], [oldPage, oldLimit]): Promise<void> => {
