@@ -27,96 +27,6 @@ import type { Winner, WinnersResponse } from "~/shared/types/winners";
 const route = useRoute();
 const router = useRouter();
 
-// const loading = ref<boolean>(true);
-// const winners = ref<Winner[]>([]);
-// const limit = ref<number>(Number(route.query.limit) || 5);
-// const totalRecords = ref<number>(0);
-// const currentPage = ref<number>(Number(route.query.page) || 1);
-// const err = ref<string | null>(null);
-
-// const { data, pending, status, error, refresh } = await useAsyncData<WinnersResponse>(
-//   `winners-${currentPage.value}-${limit.value}`, async () => {
-//     //loading.value = true;
-//     return await $fetch(`/api/winners?page=${currentPage.value}&limit=${limit.value}`
-//     );
-//   },
-//   {
-//     watch: [limit, currentPage], immediate: true
-//   });
-
-// loading.value = pending.value;
-
-// if (status.value == "success") {
-//   setPage();
-// }
-
-// if (status.value == "error") {
-//   err.value = "Failed to load winners.";
-//   console.log('error', error.value);
-// }
-
-// watch(pending, (newPending) => {
-//   loading.value = newPending;
-//   setPage();
-// });
-
-// const onPageChange = (event: { page: number, rows: number }) => {
-//   currentPage.value = event.page + 1;
-//   limit.value = event.rows;
-
-//   router.push({ query: { page: currentPage.value, limit: limit.value } });
-// };
-
-// const onRowChange = (event: number) => {
-//   limit.value = event;
-
-//   router.push({ query: { page: currentPage.value, limit: limit.value } });
-// };
-
-// function setPage() {
-//   winners.value = data.value?.data ?? [];
-//   totalRecords.value = data.value?.meta?.pagination.total ?? 0;
-// }
-
-// const fetchData = async () => {
-//   loading.value = true;
-
-//   const { data, pending, status, error } = await useAsyncData<WinnersResponse>(
-//     `winners-${currentPage.value}-${limit.value}`, async () => {
-//       return await $fetch(`/api/winners?page=${currentPage.value}&limit=${limit.value}`);
-//     }
-//   );
-
-//   loading.value = pending.value;
-
-//   if (status.value == "success") {
-//     winners.value = data.value?.data ?? [];
-//     totalRecords.value = data.value?.meta?.pagination.total ?? 0;
-//   }
-
-//   if (status.value == "error") {
-//     err.value = "Failed to load winners.";
-//     console.log('error', error.value);
-//   }
-// };
-
-// // Initial data fetch
-// await fetchData();
-
-// // Watch for changes in the route query parameters
-// watch(
-//   () => route.query,
-//   async (newQuery) => await fetchData(), // Re-fetch data when route query changes
-//   { deep: true } // Watch deeply for changes within the query object
-// );
-
-// const onPageChange = (event: { page: number, rows: number }) => {
-//   currentPage.value = event.page + 1;
-//   limit.value = event.rows;
-
-//   router.push({ query: { page: currentPage.value, limit: limit.value } });
-// };
-
 const currentPage = ref<number>(Number(route.query.page) || 1);
 const limit = ref<number>(Number(route.query.limit) || 5);
 
@@ -157,10 +67,9 @@ const onRowChange = (rows: number): void => {
 
 <style scoped>
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
   text-align: center;
-  position: relative;
 }
 
 .error {
@@ -168,12 +77,11 @@ const onRowChange = (rows: number): void => {
 }
 
 .loading-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(255, 255, 255, 0.8); */
   background-color: #ffffff;
   display: flex;
   justify-content: center;
