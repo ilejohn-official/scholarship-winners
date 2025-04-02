@@ -7,9 +7,9 @@ export default defineEventHandler(async (event) => {
 
   try {
     const query = getQuery(event);
-    const limit: number = Number(query.limit) || 10;
-    const page: number = Number(query.page) || 1;
-    const winnerFields: string = query.fields ? String(query?.fields) : 'winnerPhoto,winnerName,scholarshipTitle,amountWon,wonAt';
+    const page = Math.max(Number(query.page) || 1, 1);
+    const limit = Math.max(Number(query.limit) || 10, 1);
+    const winnerFields: string = query?.fields ? String(query.fields) : 'winnerPhoto,winnerName,scholarshipTitle,amountWon,wonAt';
 
     const queryParams = new URLSearchParams({
       "page[number]": String(page),
