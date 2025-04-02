@@ -3,10 +3,10 @@ export type WinnerAttributes = {
   winnerName: string;
   wonAt: string;
   winnerPhoto: string;
-  published: number;
   scholarshipTitle: string;
-  testimonialVideo: string;
-  testimonialText: string;
+  published?: number;
+  testimonialVideo?: string;
+  testimonialText?: string;
 }
 
 export type Winner = {
