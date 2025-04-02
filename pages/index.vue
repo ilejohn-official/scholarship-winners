@@ -1,27 +1,25 @@
 <template>
-  <div class="container">
-    <!-- Show loading spinner on fresh page load -->
-    <div v-if="isFreshLoad" class="loading-overlay">
-      <ClientOnly>
-        <ProgressSpinner />
-      </ClientOnly>
-    </div>
+  <!-- Show loading spinner on fresh page load -->
+  <div v-if="isFreshLoad" class="loading-overlay">
+    <ClientOnly>
+      <ProgressSpinner />
+    </ClientOnly>
+  </div>
 
-    <div v-if="!isFreshLoad">
-      <h1>Scholarship Winners</h1>
+  <div v-if="!isFreshLoad">
+    <h1>Scholarship Winners</h1>
 
-      <!-- Show error message -->
-      <p v-if="err && !loading" class="error">{{ err }}</p>
+    <!-- Show error message -->
+    <p v-if="err && !loading" class="error">{{ err }}</p>
 
-      <!-- Winners Table Component -->
-      <WinnerTable v-if="!err && winners.length > 0" :winners="winners" :tableLoading="loading" />
+    <!-- Winners Table Component -->
+    <WinnerTable v-if="!err && winners.length > 0" :winners="winners" :tableLoading="loading" />
 
-      <p v-if="!err && winners.length < 1">No scholarship winners found.</p>
+    <p v-if="!err && winners.length < 1">No scholarship winners found.</p>
 
-      <!-- Pagination Controls -->
-      <Paginator :rows="limit" :totalRecords="totalRecords" :rowsPerPageOptions="[5, 10, 20, 30]"
-        :first="(currentPage - 1) * limit" @page="onPageChange" @update:rows="onRowChange" />
-    </div>
+    <!-- Pagination Controls -->
+    <Paginator :rows="limit" :totalRecords="totalRecords" :rowsPerPageOptions="[5, 10, 20, 30]"
+      :first="(currentPage - 1) * limit" @page="onPageChange" @update:rows="onRowChange" />
   </div>
 </template>
 
@@ -80,12 +78,6 @@ const onRowChange = (rows: number): void => {
 </script>
 
 <style scoped>
-.container {
-  max-width: 900px;
-  margin: auto;
-  text-align: center;
-}
-
 .error {
   color: red;
 }
