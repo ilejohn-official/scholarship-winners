@@ -1,5 +1,5 @@
 import WinnersRepository from '~/repository/winners';
 
 export default function () {
-  return new WinnersRepository();
+  return new WinnersRepository($fetch);
 }

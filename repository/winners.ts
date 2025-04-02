@@ -1,8 +1,11 @@
 import type { AsyncDataOptions } from '#app';
+import type { $Fetch } from 'nitropack';
 import type { WinnersResponse } from '~/shared/types/winners';
 
 class WinnersRepository {
   private url: string = '/api/winners';
+
+  constructor(private $fetch: $Fetch) { }
 
   /**
    * Return scholarship winners
@@ -22,7 +25,7 @@ class WinnersRepository {
   ) {
     return useAsyncData(
       `winners-${page.value}-${limit.value}`,
-      () => $fetch<WinnersResponse>(this.url, {
+      () => this.$fetch<WinnersResponse>(this.url, {
         query: {
           page: page.value,
           limit: limit.value,
