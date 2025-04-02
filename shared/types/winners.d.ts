@@ -1,12 +1,7 @@
-export type WinnerAttributes = {
-  amountWon: number;
-  winnerName: string;
-  wonAt: string;
-  winnerPhoto: string;
-  scholarshipTitle: string;
-  published?: number;
-  testimonialVideo?: string;
-  testimonialText?: string;
+export type WinnersResponse = {
+  data: Winner[];
+  meta: WinnersMeta;
+  links: PaginatedLinks;
 }
 
 export type Winner = {
@@ -16,10 +11,15 @@ export type Winner = {
   links: Links;
 }
 
-export type WinnersResponse = {
-  data: Winner[];
-  meta: WinnersMeta;
-  links: PaginatedLinks;
+type WinnerAttributes = {
+  amountWon: number;
+  winnerName: string;
+  wonAt: string;
+  winnerPhoto: string;
+  scholarshipTitle: string;
+  published?: number;
+  testimonialVideo?: string;
+  testimonialText?: string;
 }
 
 type PaginatedLinks = Links & {
