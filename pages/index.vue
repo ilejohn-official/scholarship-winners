@@ -39,11 +39,11 @@ const limit = ref<number>(Number(route.query.limit) || 5);
 const isFreshLoad = ref(true);
 
 // Server-side data fetching
-const { data, pending, error } = await winnersRepo().getWinners(currentPage, limit);
+const { data, pending, error } = await useWinnersRepo().getWinners(currentPage, limit);
 
 // Use computed properties to track state changes
 const winners = computed<Winner[]>(() => data.value?.data ?? []);
-const totalRecords = computed<number>(() => data.value?.meta?.pagination.total ?? 0);
+const totalRecords = computed<number>(() => data.value?.meta?.pagination?.total ?? 0);
 const loading = computed<boolean>(() => pending.value);
 const err = computed<string | null>(() => error.value ? "Failed to load winners." : null);
 

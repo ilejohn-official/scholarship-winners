@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
 
     const queryParams = new URLSearchParams({
       "page[number]": String(page),
-      "page[limit]": String(limit),
+      "page[size]": String(limit),
       "fields[winner]": winnerFields
     });
 
