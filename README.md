@@ -1,6 +1,6 @@
-# Nuxt Minimal Starter
+# Scholarship Winners List
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This project is a Nuxt 3 application that displays a list of scholarship winners fetched from a JSON:API endpoint.
 
 ## Setup
 
@@ -71,5 +71,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
