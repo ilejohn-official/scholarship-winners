@@ -39,11 +39,7 @@ const limit = ref<number>(Number(route.query.limit) || 5);
 const isFreshLoad = ref(true);
 
 // Server-side data fetching
-const { data, pending, error, refresh } = await useAsyncData<WinnersResponse>(
-  `winners-${currentPage.value}-${limit.value}`,
-  () => $fetch(`/api/winners?page=${currentPage.value}&limit=${limit.value}`),
-  { server: true }
-);
+const { data, pending, error } = await winnersRepo().getWinners(currentPage, limit);
 
 // Use computed properties to track state changes
 const winners = computed<Winner[]>(() => data.value?.data ?? []);
@@ -53,15 +49,6 @@ const err = computed<string | null>(() => error.value ? "Failed to load winners.
 
 onMounted(() => {
   isFreshLoad.value = false;
-});
-
-// Watch query changes
-watch(() => [route.query.page, route.query.limit], async ([newPage, newLimit], [oldPage, oldLimit]): Promise<void> => {
-  if (newPage !== oldPage || newLimit !== oldLimit) {
-    currentPage.value = Number(newPage) || 1;
-    limit.value = Number(newLimit) || 5;
-    await refresh();
-  }
 });
 
 // Pagination handlers
